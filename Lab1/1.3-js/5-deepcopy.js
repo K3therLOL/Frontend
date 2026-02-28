@@ -1,27 +1,14 @@
-function arraycopy(arr) {
-    let copy = [];
-    for (value of arr) {
-        if (typeof value !== null && Array.isArray(value)) {
-            copy.push(arraycopy(value));
-        } else if (typeof value !== null && typeof value === "object") {
-            copy.push(deepcopy(value));
-        } else {
-            copy.push(value);
-        }
-    }
-    return copy;
-}
-
 function deepcopy(obj) {
     let copy = Object.create(obj);
     let entries = Object.entries(obj);
     for (entry of entries) {
         let key = entry[0], value = entry[1];
-        if (typeof value !== null && Array.isArray(value)) {
-            copy[key] = arraycopy(value);
-        } else if (typeof value !== null && typeof value === "object") {
+        if (typeof value !== null && typeof value === "object") {
             copy[key] = deepcopy(value);
-        } else {
+        } else if (typeof value !== null && typeof value === "date")
+            copy[key] = new Date(value);
+        }
+        else {
             copy[key] = value;
         }
     }
