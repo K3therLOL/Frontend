@@ -8,16 +8,27 @@ async function loadImage(url) {
         await img.decode();
         return img;
     } catch(err) {
-        throw new Error(`Невозможно загрузить картинку по "${url}"`)
+        throw new Error(`Невозможно загрузить картинку по "${url}"`);
     }
 }
 
 async function loadImages(urls) {
+    let has_error = false;
+
     urls.forEach(async (url) => {
         try {
-                const img = await loadImage(url);
-                document.body.appendChild(img);
+            if (has_error) {
+                return;
+            }
+
+            const img = await loadImage(url);
+            document.body.appendChild(img);
         } catch(err) {
+            if (has_error) {
+                return;
+            }
+
+            has_error = true;
             const paragraph = document.createElement("p");
             const paragraphText = document.createTextNode(err.message);
             paragraph.appendChild(paragraphText);

@@ -1,9 +1,5 @@
-const num = 5;
-let urls = [];
-for (let i = 0; i < num; ++i) {
-    let url = prompt(`Введите ${i + 1} url картинки: `);
-    urls.push(url);
-}
+const input = prompt("Введите все ссылки последовательно через пробел: ");
+const urls = input.trim().split(' ');
 
 function loadImage(url) {
     return new Promise((resolve, reject) => {
