@@ -1,40 +1,28 @@
-const input = prompt("Введите все ссылки последовательно через пробел: ");
-const urls = input.trim().split(' ');
+const input = prompt("Enter all links sequentially separated by spaces: ");
+const urls = input.trim().split(/\s+/);
 
 async function loadImage(url) {
-    try {
-        const img = new Image();
-        img.src = url;
-        await img.decode();
-        return img;
-    } catch(err) {
-        throw new Error(`Невозможно загрузить картинку по "${url}"`);
+    const resp = await fetch(url);
+    if(!resp.ok) {
+        throw new Error(`Impossible to load image by "${url}"`);
     }
+    const blob = await resp.blob();
+    const img = new Image();
+    img.src = URL.createObjectURL(blob);
+    document.body.appendChild(img);
+    return img;
 }
 
 async function loadImages(urls) {
-    let has_error = false;
-
-    urls.forEach(async (url) => {
-        try {
-            if (has_error) {
-                return;
-            }
-
-            const img = await loadImage(url);
-            document.body.appendChild(img);
-        } catch(err) {
-            if (has_error) {
-                return;
-            }
-
-            has_error = true;
-            const paragraph = document.createElement("p");
-            const paragraphText = document.createTextNode(err.message);
-            paragraph.appendChild(paragraphText);
-            document.body.appendChild(paragraph);
-        }
-    })
+    try {
+        await Promise.all(urls.map((url) => loadImage(url)));
+    } catch(err) {
+        document.body.replaceChildren();
+        const paragraph = document.createElement("p");
+        const paragraphText = document.createTextNode(err.message);
+        paragraph.appendChild(paragraphText);
+        document.body.appendChild(paragraph);
+    }
 }
 
 loadImages(urls);
