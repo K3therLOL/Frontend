@@ -1,12 +1,12 @@
-const input = prompt("Введите все ссылки последовательно через пробел: ");
-const urls = input.trim().split(' ');
+const input = prompt("Enter all links sequentially separated by spaces: ");
+const urls = input.trim().split(/\s+/);
 
 function loadImage(url) {
     return new Promise((resolve, reject) => {
         const img = new Image();
         img.src = url;
         img.onload = () => resolve(img);
-        img.onerror = () => reject(new Error(`Невозможно загрузить картинку по "${url}"`));
+        img.onerror = () => reject(new Error(`Impossible to load image by "${url}"`));
     })
 }
 
