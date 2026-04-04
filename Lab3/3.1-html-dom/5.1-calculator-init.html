@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Calculator</title>
+</head>
+<body>
+
+<div class="calculator">
+    <input type="text" id="display" readonly value="0">
+    <div class="buttons">
+        <!-- Row 1 -->
+        <button onclick="appendNumber('7')" style="width: 30px; height: 30px;">7</button>
+        <button onclick="appendNumber('8')" style="width: 30px; height: 30px;">8</button>
+        <button onclick="appendNumber('9')" style="width: 30px; height: 30px;">9</button>
+        <button onclick="setOperator('/')" style="width: 30px; height: 30px;">/</button><br>
+        <!-- Row 2 -->
+        <button onclick="appendNumber('4')" style="width: 30px; height: 30px;">4</button>
+        <button onclick="appendNumber('5')"style="width: 30px; height: 30px;">5</button>
+        <button onclick="appendNumber('6')" style="width: 30px; height: 30px;">6</button>
+        <button onclick="setOperator('*')" style="width: 30px; height: 30px;">*</button><br>
+        <!-- Row 3 -->
+        <button onclick="appendNumber('1')" style="width: 30px; height: 30px;">1</button>
+        <button onclick="appendNumber('2')" style="width: 30px; height: 30px;">2</button>
+        <button onclick="appendNumber('3')" style="width: 30px; height: 30px;">3</button>
+        <button onclick="setOperator('-')" style="width: 30px; height: 30px;">-</button><br>
+        <!-- Row 4 -->
+        <button onclick="appendNumber('0')" style="width: 30px; height: 30px;">0</button>
+        <button onclick="clearDisplay()" style="width: 30px; height: 30px;">C</button>
+        <button onclick="calculate()" style="width: 30px; height: 30px;">=</button>
+        <button onclick="setOperator('+')" style="width: 30px; height: 30px;">+</button>
+    </div>
+</div>
+
+<script src="5.2-calculator-script.js"></script>
+
+</body>
+</html>
