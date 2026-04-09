@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Calculator</title>
+</head>
+<body>
+
+<div class="calculator">
+    <input type="text" id="display" readonly value="0">
+    <div class="buttons">
+        <!-- Row 1 -->
+        <button onclick="appendNumber('7')">7</button>
+        <button onclick="appendNumber('8')">8</button>
+        <button onclick="appendNumber('9')">9</button>
+        <button onclick="setOperator('/')">/</button>
+        <!-- Row 2 -->
+        <button onclick="appendNumber('4')">4</button>
+        <button onclick="appendNumber('5')">5</button>
+        <button onclick="appendNumber('6')">6</button>
+        <button onclick="setOperator('*')">*</button>
+        <!-- Row 3 -->
+        <button onclick="appendNumber('1')">1</button>
+        <button onclick="appendNumber('2')">2</button>
+        <button onclick="appendNumber('3')">3</button>
+        <button onclick="setOperator('-')">-</button>
+        <!-- Row 4 -->
+        <button onclick="appendNumber('0')">0</button>
+        <button onclick="clearDisplay()">C</button>
+        <button onclick="calculate()">=</button>
+        <button onclick="setOperator('+')">+</button>
+    </div>
+</div>
+
+<script>
+    let firstOperand = "";
+    let secondOperand = "";
+    let currentOperator = null;
+    let shouldResetScreen = false;
+
+    const display = document.getElementById('display');
+
+    function appendNumber(number) {
+        if (display.value === "0" || shouldResetScreen) {
+            display.value = number;
+            shouldResetScreen = false;
+        } else {
+            display.value += number;
+        }
+    }
+
+    function setOperator(operator) {
+        // If an operator is already set and we type another one, calculate first
+        if (currentOperator !== null && !shouldResetScreen) {
+            calculate(); // Calculate the previous operation
+        }
+        firstOperand = display.value;
+        currentOperator = operator;
+        shouldResetScreen = true; // Prepare to reset for the second number
+    }
+
+    function clearDisplay() {
+        display.value = "0";
+        firstOperand = "";
+        secondOperand = "";
+        currentOperator = null;
+        shouldResetScreen = false; // Reset flag too
+    }
+
+    function calculate() {
+        // If no operator is set, or if we just pressed an operator and haven't entered the second number yet
+        if (currentOperator === null || shouldResetScreen) {
+            return;
+        }
+        
+        secondOperand = display.value;
+        let result = 0;
+        let x = parseFloat(firstOperand);
+        let y = parseFloat(secondOperand);
+
+        switch (currentOperator) {
+            case '+': 
+                result = x + y; 
+                break;
+            case '-': 
+                result = x - y; 
+                break;
+            case '*': 
+                result = x * y; 
+                break;
+            case '/': 
+                if (y === 0) {
+                    alert("Error: Division by zero");
+                    clearDisplay();
+                    return;
+                }
+                result = x / y; 
+                break;
+        }
+
+        // Display the result. If result is not a finite number (e.g. NaN from invalid input), display 0 or error.
+        display.value = isFinite(result) ? result : "Error";
+        
+        firstOperand = result; // The result becomes the first operand for potential chained operations
+        currentOperator = null; // Clear operator until a new one is pressed
+        shouldResetScreen = true; // Next number pressed should clear the display
+    }
+
+    clearDisplay();
+</script>
+
+</body>
+</html>
