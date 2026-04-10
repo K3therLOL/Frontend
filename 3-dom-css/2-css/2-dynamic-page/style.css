@@ -1,0 +1,21 @@
+#dynamic-text::after {
+    content: "Desktop";
+    color: red;
+    font-size: 50px;
+    font-family: "Times New Roman";
+    font-weight: bold;
+}
+
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+    #dynamic-text::after {
+        content: "Tablet";
+        color: green;
+    }
+}
+
+@media screen and (min-width: 0px) and (max-width: 768px) {
+    #dynamic-text::after {
+        content: "Mobile";
+        color: cyan;
+    }
+}
