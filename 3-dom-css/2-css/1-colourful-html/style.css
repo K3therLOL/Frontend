@@ -6,9 +6,13 @@
     color: blue;
 }
 
-#sans span {
+#sans {
     font-family: "Comic Sans MS", "Comic Sans", cursive, sans-serif;
     font-size: 1.25em;
+}
+
+#oblique {
+    font-style: oblique;
 }
 
 table, td {
@@ -17,6 +21,7 @@ table, td {
     border-collapse: collapse;
     width: 25%;
 }
+
 th, td {
     padding: 5px;
     text-align: left;
