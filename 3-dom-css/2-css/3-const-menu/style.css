@@ -1,0 +1,20 @@
+#menu-box {
+    padding-top: 10px;
+    height: 10000px;
+    width: 100%;
+    background-color: lightblue;
+}
+
+#bar {
+    position: fixed;
+    background-color: #404040;
+    padding: 0px;
+    margin: 0px;
+    display: flex;
+    justify-content: center;
+}
+
+#bar a {
+    color: white;
+    padding: 10px;
+}
