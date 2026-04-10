@@ -20,7 +20,22 @@
     font-size: 1.93em;
 }
 
-table, td {
+
+table {
+    border-collapse: collapse;
+    table-layout: fixed;
+    width: 500px;           /* fixed width instead of 25% */
+    background-color: cyan;
+}
+
+th, td {
+    border: 1px solid black;
+    padding: 5px;
+    text-align: left;
+    white-space: nowrap;    /* prevents wrapping when zooming */
+}
+
+/*table, td {
     background-color: cyan;
     border: 1px solid black;
     border-collapse: collapse;
@@ -30,4 +45,4 @@ table, td {
 th, td {
     padding: 5px;
     text-align: left;
-}
+}*/
