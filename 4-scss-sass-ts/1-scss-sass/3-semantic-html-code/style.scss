@@ -2,7 +2,6 @@ $light-gray: #f5f5f5;
 $nav-footer-height: 4em;
 $block-padding: 2rem;
 
-// 2. Создаем миксин для центрирования Flexbox (так как оно повторяется)
 @mixin flex-center {
   display: flex;
   align-items: center;
@@ -10,12 +9,10 @@ $block-padding: 2rem;
   text-align: center;
 }
 
-// Основные стили
 body {
   margin: 0 20rem;
 }
 
-// Утилитарные классы
 .center {
   text-align: center;
 }
@@ -28,10 +25,9 @@ body {
   margin-bottom: 25px;
 }
 
-// Стили для Navbar
 .navbar {
   @include gray-background;
-  @include flex-center; // Используем миксин
+  @include flex-center;
   height: $nav-footer-height;
   margin-bottom: 20px;
 
@@ -47,22 +43,15 @@ body {
     display: block;
     padding: 15px;
     text-align: center;
-    
-    // Здесь можно добавить hover эффект, если нужно
-    &:hover {
-      opacity: 0.8;
-    }
-  }
+  }    
 }
 
-// Стили для Footer (наследует часть логики у миксина)
 .footer {
   @include gray-background;
   @include flex-center;
   height: $nav-footer-height;
 }
 
-// Контейнер для блоков
 .block-container {
   display: flex;
   gap: 1em;
