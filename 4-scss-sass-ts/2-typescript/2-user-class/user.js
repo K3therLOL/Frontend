@@ -11,6 +11,6 @@ class User {
         console.log(`Hi! My name is ${this.name}. And I am ${this.age} years old.`);
     }
 }
-const first = new User("Jake", 15);
-first.hello();
+const newUser = new User("Jake", 15);
+newUser.hello();
 //# sourceMappingURL=user.js.map

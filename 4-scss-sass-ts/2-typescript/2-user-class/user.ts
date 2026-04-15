@@ -17,5 +17,5 @@ class User implements IUser {
     }
 }
 
-const first : IUser = new User("Jake", 15);
-first.hello();
+const newUser : IUser = new User("Jake", 15);
+newUser.hello();
