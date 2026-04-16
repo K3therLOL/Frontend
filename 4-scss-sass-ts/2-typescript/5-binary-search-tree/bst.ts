@@ -10,7 +10,7 @@ class node {
     }
 }
 
-class Tree {
+export class Tree {
     head: node | null; 
     
     constructor() {
@@ -97,12 +97,53 @@ class Tree {
                 break;
             }
         }
-        if(targetNode === null) {
+        if(targetNode === null) { // key not found in tree
             return;
         }
 
-        if(targetNode.left === null && targetNode.right === null) {
+        if(parentNode === null && targetNode.left === null && targetNode.right === null) {
+            this.head = null;
+        } else if(parentNode === null && targetNode.left !== null && targetNode.right === null) {
+            this.head = targetNode.left;
+        } else if(parentNode === null && targetNode.left === null && targetNode.right !== null) {
+            this.head = targetNode.right;
+        } else if(parentNode !== null && parentNode.left === targetNode && targetNode.left === null && targetNode.right === null) {
+            targetNode = null;
+            parentNode.left = null;
+        } else if(parentNode !== null && parentNode.right === targetNode && targetNode.left === null && targetNode.right === null) {
+            targetNode = null;
+            parentNode.right = null;
+        } else if(parentNode !== null && parentNode.left === targetNode && targetNode.left !== null && targetNode.right === null) {
+            parentNode.left = targetNode.left;
+            targetNode = null;
+        } else if(parentNode !== null && parentNode.right === targetNode && targetNode.left !== null && targetNode.right === null) {
+            parentNode.right = targetNode.left;
+            targetNode = null;
+        } else if(parentNode !== null && parentNode.left === targetNode && targetNode.left === null && targetNode.right !== null) {
+            parentNode.left = targetNode.right;
+            targetNode = null;
+        } else if(parentNode !== null && parentNode.right === targetNode && targetNode.left === null && targetNode.right !== null) {
+            parentNode.right = targetNode.right;
+            targetNode = null;
+        } else if(targetNode.left !== null && targetNode.right !== null) {
+            let nodeToDelete: node = this.leftMin(targetNode);
+            const savedKey: number = nodeToDelete.key;
+            this.delete(savedKey);
+            targetNode.key = savedKey;
         }
+    }
+
+    private leftMin(root: node): node {
+        if (root.left === null) {
+            return root;
+        }
+
+        let cur: node = root.left;
+        while (cur.right != null) {
+            cur = cur.right;
+        }
+
+        return cur;
     }
 
     print(): void {
@@ -120,14 +161,3 @@ class Tree {
     }
 }
 
-const t = new Tree();
-t.insert(5);
-t.insert(3);
-t.insert(2);
-t.insert(4);
-t.insert(6);
-t.insert(7);
-console.log(t.search(2));
-console.log(t.search(0));
-console.log(t.height());
-t.print();
