@@ -126,14 +126,14 @@ export class Tree {
             parentNode.right = targetNode.right;
             targetNode = null;
         } else if(targetNode.left !== null && targetNode.right !== null) {
-            let nodeToDelete: node = this.leftMin(targetNode);
+            let nodeToDelete: node = this.leftMax(targetNode);
             const savedKey: number = nodeToDelete.key;
             this.delete(savedKey);
             targetNode.key = savedKey;
         }
     }
 
-    private leftMin(root: node): node {
+    private leftMax(root: node): node {
         if (root.left === null) {
             return root;
         }
