@@ -28,12 +28,10 @@ class Tree {
             if (cur.key > key && cur.left === null) {
                 cur.left = new node(key);
                 return;
-            }
-            else if (cur.key < key && cur.right === null) {
+            } else if (cur.key < key && cur.right === null) {
                 cur.right = new node(key);
                 return;
-            }
-            else if (cur.key > key && cur.left !== null) {
+            } else if (cur.key > key && cur.left !== null) {
                 cur = cur.left;
             } else if (cur.key < key && cur.right !== null) {
                 cur = cur.right;
@@ -62,6 +60,51 @@ class Tree {
         return null;
     }
 
+    height(): number {
+        if(this.head === null) {
+            return 0;
+        }
+
+        return this.cntHeight(this.head);
+    }
+
+    private cntHeight(node: node | null): number {
+        if (node === null) {
+            return 0;
+        }
+
+        const leftHeight: number = this.cntHeight(node.left) + 1;
+        const rightHeight: number = this.cntHeight(node.right) + 1;
+
+        return leftHeight > rightHeight ? leftHeight : rightHeight;
+    }
+
+    delete(key: number): void {
+        if (this.head === null) {
+            return;
+        }
+
+        let targetNode: node | null = this.head;
+        let parentNode: node | null = null;
+        while(targetNode !== null) {
+            if(key < targetNode.key) {
+                parentNode = targetNode;
+                targetNode = targetNode.left;
+            } else if(key > targetNode.key) {
+                parentNode = targetNode;
+                targetNode = targetNode.right;
+            } else {
+                break;
+            }
+        }
+        if(targetNode === null) {
+            return;
+        }
+
+        if(targetNode.left === null && targetNode.right === null) {
+        }
+    }
+
     print(): void {
         this.printNode(this.head, 0);
     }
@@ -86,4 +129,5 @@ t.insert(6);
 t.insert(7);
 console.log(t.search(2));
 console.log(t.search(0));
+console.log(t.height());
 t.print();
