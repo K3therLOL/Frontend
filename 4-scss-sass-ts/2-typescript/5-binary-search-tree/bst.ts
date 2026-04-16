@@ -146,6 +146,13 @@ export class Tree {
         return cur;
     }
 
+    update(oldKey: number, newKey: number): void {
+        if (this.search(oldKey) !== null) {
+            this.delete(oldKey);
+            this.insert(newKey);
+        }
+    }
+
     print(): void {
         this.printNode(this.head, 0);
     }
@@ -160,4 +167,3 @@ export class Tree {
         this.printNode(node.left, depth + 1);
     }
 }
-
