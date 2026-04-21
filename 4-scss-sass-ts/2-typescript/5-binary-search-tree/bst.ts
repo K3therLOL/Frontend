@@ -80,70 +80,45 @@ export class Tree {
     }
 
     delete(key: number): void {
-        if (this.head === null) {
-            return;
-        }
-
-        let targetNode: node | null = this.head;
         let parentNode: node | null = null;
-        while(targetNode !== null) {
-            if(key < targetNode.key) {
-                parentNode = targetNode;
-                targetNode = targetNode.left;
-            } else if(key > targetNode.key) {
-                parentNode = targetNode;
-                targetNode = targetNode.right;
-            } else {
-                break;
+        let targetNode: node | null = this.head;
+
+        // searching for node
+        while (targetNode !== null && targetNode.key !== key) {
+            parentNode = targetNode;
+            targetNode = key < targetNode.key ? targetNode.left : targetNode.right;
+        }
+
+        if (targetNode === null) { // not found
+            return; 
+        }
+
+        if (targetNode.left !== null && targetNode.right !== null) {
+            let replacementParent: node = targetNode;
+            let replacement: node = targetNode.left;
+
+            while (replacement.right !== null) {
+                replacementParent = replacement;
+                replacement = replacement.right;
             }
-        }
-        if(targetNode === null) { // key not found in tree
-            return;
+
+        
+            targetNode.key = replacement.key;
+
+            targetNode = replacement;
+            parentNode = replacementParent;
         }
 
-        if(parentNode === null && targetNode.left === null && targetNode.right === null) {
-            this.head = null;
-        } else if(parentNode === null && targetNode.left !== null && targetNode.right === null) {
-            this.head = targetNode.left;
-        } else if(parentNode === null && targetNode.left === null && targetNode.right !== null) {
-            this.head = targetNode.right;
-        } else if(parentNode !== null && parentNode.left === targetNode && targetNode.left === null && targetNode.right === null) {
-            targetNode = null;
-            parentNode.left = null;
-        } else if(parentNode !== null && parentNode.right === targetNode && targetNode.left === null && targetNode.right === null) {
-            targetNode = null;
-            parentNode.right = null;
-        } else if(parentNode !== null && parentNode.left === targetNode && targetNode.left !== null && targetNode.right === null) {
-            parentNode.left = targetNode.left;
-            targetNode = null;
-        } else if(parentNode !== null && parentNode.right === targetNode && targetNode.left !== null && targetNode.right === null) {
-            parentNode.right = targetNode.left;
-            targetNode = null;
-        } else if(parentNode !== null && parentNode.left === targetNode && targetNode.left === null && targetNode.right !== null) {
-            parentNode.left = targetNode.right;
-            targetNode = null;
-        } else if(parentNode !== null && parentNode.right === targetNode && targetNode.left === null && targetNode.right !== null) {
-            parentNode.right = targetNode.right;
-            targetNode = null;
-        } else if(targetNode.left !== null && targetNode.right !== null) {
-            let nodeToDelete: node = this.leftMax(targetNode);
-            const savedKey: number = nodeToDelete.key;
-            this.delete(savedKey);
-            targetNode.key = savedKey;
-        }
-    }
+        // 0 or 1 children now
+        const child = targetNode.left ?? targetNode.right;
 
-    private leftMax(root: node): node {
-        if (root.left === null) {
-            return root;
+        if (parentNode === null) {
+            this.head = child;
+        } else if (parentNode.left === targetNode) {
+            parentNode.left = child;
+        } else {
+            parentNode.right = child;
         }
-
-        let cur: node = root.left;
-        while (cur.right != null) {
-            cur = cur.right;
-        }
-
-        return cur;
     }
 
     update(oldKey: number, newKey: number): void {
