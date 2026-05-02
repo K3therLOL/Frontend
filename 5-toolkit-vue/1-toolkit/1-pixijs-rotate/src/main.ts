@@ -13,7 +13,7 @@ import { Application, Assets, Sprite, Graphics } from "pixi.js";
     const square = new Graphics();
     square.rect(0, 0, 100, 100).fill(0xff0000);
 
-    square.pivot.set(50, 50);square.pivot.set(50, 50);
+    square.pivot.set(50, 50);
 
     square.position.set(app.screen.width / 2, app.screen.height / 2);
 
